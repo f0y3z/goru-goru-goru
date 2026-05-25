@@ -1,1 +1,1 @@
-# TLOU-Vater-Hotel
+# The Last of Us: Vater Hotel
