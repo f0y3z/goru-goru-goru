@@ -17,66 +17,75 @@ public class core extends Application{
 	private int totalCols=4; 	
 	private	int col=0;
 	private	int row =0;
+        //frame calculation
+        private void cycleAnimation(ImageView iv){
+                col = (col + 1) % totalCols; //0 1 2 3 0 1 2 3
+                Rectangle2D viewport = new Rectangle2D(col * frameWidth, row * frameHeight, frameWidth, frameHeight);
+                iv.setViewport(viewport);
+        }
+
+
 
 	public void start(Stage primaryStage){
 		//pane holds all othe nodes
 		Pane root=new Pane();
-
+	
 		//rendering background
 		Image background = new Image("file:background.png");
 		ImageView back= new ImageView(background);
-		back.setFitWidth(960);
-		back.setFitHeight(540);
+		back.setFitWidth(1900);
+		back.setFitHeight(1000);
 		back.setSmooth(false);
-
+	
 		//rendering the horse sprite
 		Image spriteSheet = new Image("file:horse.png");
 		ImageView player= new ImageView(spriteSheet);
 		Rectangle2D viewport = new Rectangle2D(col * frameWidth,row* frameHeight,frameWidth,frameHeight);	
 		player.setViewport(viewport);
+		player.setFitWidth(94);
+		player.setFitHeight(94);
 		player.setTranslateX(200);
 		player.setTranslateY(200);
 
-		//adding all nodes to root pane
-		root.getChildren().add(back);
-		root.getChildren().add(player);
-		//creates scene with the pane
-                Scene scene = new Scene(root,960,540);
+                //adding all nodes to root pane
+                root.getChildren().add(back);
+                root.getChildren().add(player);
+                //creates scene with the pane
+                Scene scene = new Scene(root,1900,1000);
+		
 
-
-
-			
 		//animation and movement
         	scene.setOnKeyPressed(event -> {
             		KeyCode key = event.getCode();
-            		double speed = 10.0;
-            		if (key == KeyCode.RIGHT) {
-                		player.setTranslateX(player.getTranslateX() + speed);
-                		row = 0; // row facing right
-                		cycleAnimation();
-                		updateViewport(player);
-            		} 
-            		else if (key == KeyCode.LEFT) {
-                		player.setTranslateX(player.getTranslateX() - speed);
-                		row = 1; // this will be changed later for multidirectional movement 
-                		cycleAnimation();
-                		updateViewport(player);
-            		}
+            		double speed = 4.0;
+            		switch (key){
+				case KeyCode.UP:
+					row =1;
+					player.setTranslateY(player.getTranslateY()-speed);
+					cycleAnimation(player);
+					break;
+				case KeyCode.DOWN:
+					row = 3;
+					player.setTranslateY(player.getTranslateY() + speed);
+					cycleAnimation(player);
+					break;
+				case KeyCode.LEFT:
+					row =2;
+					player.setTranslateX(player.getTranslateX() - speed);
+					cycleAnimation(player);
+					break;
+				case KeyCode.RIGHT:
+					row =0;
+					player.setTranslateX(player.getTranslateX() + speed);
+					cycleAnimation(player);
+					break;
+
+			}
         	});
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-	
-	//frame calculation
-    	private void cycleAnimation() {
-        	col = (col + 1) % totalCols; //0 1 2 3 0 1 2 3
-    	}
-    	//updatting viewport
-    	private void updateViewport(ImageView iv) {
-        	Rectangle2D viewport = new Rectangle2D(col * frameWidth, row * frameHeight, frameWidth, frameHeight);
-        	iv.setViewport(viewport);
-    	}			
+	}	
 	public static void main(String[] args){
 		launch(args);
 	}
