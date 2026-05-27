@@ -54,7 +54,7 @@ public class GameMenu extends Application {
 
         // Background image
         BackgroundImage bg = new BackgroundImage(
-                new Image("file:/home/zian/Downloads/bg.jpg"),
+                new Image("file:bg.jpg"),
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
@@ -94,8 +94,8 @@ public class GameMenu extends Application {
         Scene optionScene = new Scene(optionMenu, 800, 600);
 
         // ===== Apply CSS =====
-        menuScene.getStylesheets().add("file:/home/zian/Study/TLOU-Vater-Hotel/game/menu/style.css");
-        optionScene.getStylesheets().add("file:/home/zian/Study/TLOU-Vater-Hotel/game/menu/style.css");
+        menuScene.getStylesheets().add("file:style.css");
+        optionScene.getStylesheets().add("file:style.css");
 
         // ===== Responsive Binding =====
         startBtn.prefWidthProperty().bind(menuScene.widthProperty().multiply(0.3));
