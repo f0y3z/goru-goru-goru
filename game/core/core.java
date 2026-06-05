@@ -39,10 +39,20 @@ public class core extends Application{
 		player.setViewport(viewport);
 		player.setTranslateX(200);
 		player.setTranslateY(200);
+		
+		//rendering the enemy
+		Image enm= new Image("file:enemy.png");
+		ImageView enemy = new ImageView(enm);
+		enemy.setFitWidth(96);
+		enemy.setFitHeight(96);
+		enemy.setTranslateX(850);
+		enemy.setTranslateY(320);
+
 
 		//adding all nodes to root pane
 		root.getChildren().add(back);
 		root.getChildren().add(player);
+		root.getChildren().add(enemy);
 		//creates scene with the pane
                 Scene scene = new Scene(root,960,540);
 
@@ -54,24 +64,39 @@ public class core extends Application{
 			if (running) {return;}//if animaiton is still running dont register keypress.
 
             		KeyCode key = event.getCode();
-            		if (key == KeyCode.RIGHT) {
+            		if (key == KeyCode.D) {
                 		row = 0;
+				enemy.setTranslateX(enemy.getTranslateX()-40);
 				player.setScaleX(1);
                 		cycleAnimation(player);
             		} 
-            		else if (key == KeyCode.LEFT) {
+            		else if (key == KeyCode.A) {
                 		row = 0; 
+				enemy.setTranslateX(enemy.getTranslateX()+40);
 				player.setScaleX(-1);
                 		cycleAnimation(player);
             		}
-			else if (key == KeyCode.UP){
+			else if (key == KeyCode.W){
 				row = 2;
 				cycleAnimation2(player);
 			}
-			else if(key == KeyCode.DOWN){
+			else if(key == KeyCode.S){
 				row =3;
 				cycleAnimation(player);
 			}
+			//fall back
+			else if(key == KeyCode.SPACE){
+				row =3;
+				cycleAnimation(player);
+				player.setTranslateX(player.getTranslateX()-60);
+			}
+			//attack
+			else if(key == KeyCode.F){
+                                row =2;
+                                cycleAnimation2(player);
+                                player.setTranslateX(player.getTranslateX()+60);
+                        }
+
         	});
 
 		primaryStage.setScene(scene);
