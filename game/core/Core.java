@@ -12,6 +12,7 @@ import javafx.animation.KeyFrame;//animation libns
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import game.cow.*;//cow package
+import game.menu.*;
 
 public class Core extends Application{
 	private int row = 0;
@@ -23,7 +24,7 @@ public class Core extends Application{
 
 		//background rendering
 		//background rendering (scrolling)
-		Image background = new Image("file:game/media/green.jpg");
+		Image background = new Image("file:game/media/background.jpg");
 		ImageView back1 = new ImageView(background);
 		ImageView back2 = new ImageView(background);
 
@@ -52,7 +53,6 @@ public class Core extends Application{
     	}
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
 
 
 		//cow palyer instance
@@ -117,8 +117,13 @@ public class Core extends Application{
 
         	});
 
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		GameMenu gameMenu = new GameMenu();
+		gameMenu.show(primaryStage, () -> {
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Game");
+			timeline.play();
+		});
+			
 	}
 	
 	

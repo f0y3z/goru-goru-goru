@@ -1,3 +1,4 @@
+package game.menu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,9 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
-public class GameMenu extends Application {
+public class GameMenu{
     private int highscore = 0;
-    private final String SCORE_FILE = "highscore.txt";
+    private final String SCORE_FILE = "game/menu/highscore.txt";
 
     // Load highscore from file
     private void loadHighscore() {
@@ -48,13 +49,12 @@ public class GameMenu extends Application {
         return highscore;
     }
 
-    @Override
-    public void start(Stage stage) {
+    public void show(Stage stage,Runnable onStart) {
         loadHighscore();
 
         // Background image
         BackgroundImage bg = new BackgroundImage(
-                new Image("file:bg.jpg"),
+                new Image("file:game/media/bg.jpg"),
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
@@ -94,8 +94,8 @@ public class GameMenu extends Application {
         Scene optionScene = new Scene(optionMenu, 800, 600);
 
         // ===== Apply CSS =====
-        menuScene.getStylesheets().add("file:style.css");
-        optionScene.getStylesheets().add("file:style.css");
+        menuScene.getStylesheets().add("file:game/menu/style.css");
+        optionScene.getStylesheets().add("file:game/menu/style.css");
 
         // ===== Responsive Binding =====
         startBtn.prefWidthProperty().bind(menuScene.widthProperty().multiply(0.3));
@@ -121,13 +121,11 @@ public class GameMenu extends Application {
         backBtn.setOnAction(e -> stage.setScene(menuScene));
         exitBtn.setOnAction(e -> stage.close());
 
+        startBtn.setOnAction(e -> onStart.run());
+        
         // ===== Show Stage =====
         stage.setScene(menuScene);
         stage.setTitle("Game Menu");
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
