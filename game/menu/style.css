@@ -19,3 +19,15 @@
     -fx-border-width: 2;
     -fx-padding: 10;
 }
+.pause-button {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
+
+.pause-button:hover {
+    -fx-background-color: darkgreen;
+    -fx-text-fill: white;
+}

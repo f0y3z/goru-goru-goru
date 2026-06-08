@@ -1,4 +1,5 @@
 package game.core;
+import game.menu.*;
 import javafx.application.Application;//the application class under which all jfx porgrams are written 
 import javafx.stage.Stage;
 import javafx.scene.Scene;//to set the scene with resolution
@@ -107,10 +108,17 @@ public class Core extends Application{
 		root.getChildren().add(enemy);
     
 		Scene scene = new Scene(root,globalVar.width,globalVar.height);
-
+    Scene[] menuSceneHolder = new Scene[1];
+    int[] scoreHolder = {0};
+    PauseMenu pauseMenu = new PauseMenu(primaryStage, scene, menuSceneHolder, scoreHolder);
 		//controls
 		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
+			//PauseMenu 
+            if (key == KeyCode.ESCAPE) {
+                primaryStage.setScene(pauseMenu.getScene());
+                return;
+            }
 			// if (cow.running) {return;}
 			//move right
             if (key == KeyCode.D) {
@@ -164,7 +172,8 @@ public class Core extends Application{
 
 		GameMenu gameMenu = new GameMenu();
 		gameMenu.show(primaryStage, () -> {
-			primaryStage.setScene(scene);
+      menuSceneHolder[0] = primaryStage.getScene();
+      primaryStage.setScene(scene);
 			primaryStage.setTitle("Game");
 		});
 			
