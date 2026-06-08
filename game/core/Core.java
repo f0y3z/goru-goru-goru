@@ -12,7 +12,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import game.cow.*;//cow package
 import game.menu.*;
-
+import java.util.Random;
 
 class globalVar {
 	public static int width = 960;
@@ -63,6 +63,24 @@ class Background{
 				}
 }
 
+class Enemy{
+	//enemy rendering
+	Image enm= new Image("file:game/media/enemy.png");
+	public ImageView enemy = new ImageView(enm);
+	public void setup() {
+		enemy.setFitWidth(96);
+		enemy.setFitHeight(96);
+		enemy.setTranslateX(850);
+		enemy.setTranslateY(340);
+	}
+	Random rand = new Random();
+	public void spawn() {
+		int randPos=rand.nextInt((globalVar.width-globalVar.width/2)+1)+globalVar.width/2;
+		if(enemy.getTranslateX() <-40) {
+			enemy.setTranslateX(randPos);
+		}
+	}
+}
 public class Core extends Application{
 
 	public void start(Stage primaryStage){
@@ -78,14 +96,10 @@ public class Core extends Application{
 		ImageView player = cow.player;
 
 		//enemy rendering
-		Image enm= new Image("file:game/media/enemy.png");
-		ImageView enemy = new ImageView(enm);
-		enemy.setFitWidth(96);
-		enemy.setFitHeight(96);
-		enemy.setTranslateX(850);
-		enemy.setTranslateY(320);
+		Enemy enemyy = new Enemy();
+		ImageView enemy=enemyy.enemy;
+		enemyy.setup();
 		
-
 		//adding all nodes to root pane
 	    root.getChildren().add(background.back1);
 		root.getChildren().add(background.back2);
@@ -101,6 +115,7 @@ public class Core extends Application{
 			//move right
             if (key == KeyCode.D) {
                 cow.row = 0;
+				enemyy.spawn();
 				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed);
 				player.setScaleX(1);//set direction
 				if (!cow.running){cow.cycleAnimation(player);}
@@ -119,29 +134,31 @@ public class Core extends Application{
 				cow.row = 2;
 				if(!cow.running){cow.cycleAnimation(player,1);}
 				background.scrollBackground(1);
-				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed-100);
+				enemyy.spawn();
+				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed);
 			}
 			//mvoe down
 			else if(key == KeyCode.S){
 				cow.row =3;
 				if(!cow.running){cow.cycleAnimation(player);}
 				background.scrollBackground('a');
-				enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed+100);
+				enemyy.spawn();
+				enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed);
 			}
 
 
-			//fall back
-			else if(key == KeyCode.SPACE){
-				cow.row =3;
-				if(!cow.running){cow.cycleAnimation(player);}
-				player.setTranslateX(player.getTranslateX()-60);
-			    }
-			//attack
-			else if(key == KeyCode.F){
-				cow.row =2;
-				if(!cow.running){cow.cycleAnimation(player,1);}
-				player.setTranslateX(player.getTranslateX()+60);
-                }
+			// //fall back
+			// else if(key == KeyCode.SPACE){
+			// 	cow.row =3;
+			// 	if(!cow.running){cow.cycleAnimation(player);}
+			// 	// player.setTranslateX(player.getTranslateX()-60);
+			//     }
+			// //attack
+			// else if(key == KeyCode.F){
+			// 	cow.row =2;
+			// 	if(!cow.running){cow.cycleAnimation(player,1);}
+			// 	// player.setTranslateX(player.getTranslateX()+60);
+            //     }
 
         	});
 
