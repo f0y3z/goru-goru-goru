@@ -17,7 +17,7 @@ import game.menu.*;
 class globalVar {
 	public static int width = 960;
 	public static int height = 540;
-	public static int speed = 50;
+	public static int speed = 10;
 	
 }
 class Background{
@@ -96,35 +96,35 @@ public class Core extends Application{
 
 		//controls
 		scene.setOnKeyPressed(event -> {
-			if (cow.running) {return;}
 			KeyCode key = event.getCode();
+			// if (cow.running) {return;}
 			//move right
             if (key == KeyCode.D) {
                 cow.row = 0;
 				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed);
 				player.setScaleX(1);//set direction
-                cow.cycleAnimation(player);
+				if (!cow.running){cow.cycleAnimation(player);}
 				background.scrollBackground(1);
             	}	 
 			//move left
-            else if (key == KeyCode.A) {
-                cow.row = 0; 
-				enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed);
-				player.setScaleX(-1);//set directions
-                cow.cycleAnimation(player);
-				background.scrollBackground('a');
-				}
+            // else if (key == KeyCode.A) {
+            //     cow.row = 0; 
+			// 	enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed);
+			// 	player.setScaleX(-1);//set directions
+            //     if (!cow.running){cow.cycleAnimation(player);}
+			// 	background.scrollBackground('a');
+			// 	}
 			//move up
 			else if (key == KeyCode.W){
 				cow.row = 2;
-				cow.cycleAnimation(player,1);
+				if(!cow.running){cow.cycleAnimation(player,1);}
 				background.scrollBackground(1);
 				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed-100);
 			}
 			//mvoe down
 			else if(key == KeyCode.S){
 				cow.row =3;
-				cow.cycleAnimation(player);
+				if(!cow.running){cow.cycleAnimation(player);}
 				background.scrollBackground('a');
 				enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed+100);
 			}
@@ -133,13 +133,13 @@ public class Core extends Application{
 			//fall back
 			else if(key == KeyCode.SPACE){
 				cow.row =3;
-				cow.cycleAnimation(player);
+				if(!cow.running){cow.cycleAnimation(player);}
 				player.setTranslateX(player.getTranslateX()-60);
 			    }
 			//attack
 			else if(key == KeyCode.F){
 				cow.row =2;
-				cow.cycleAnimation(player,1);
+				if(!cow.running){cow.cycleAnimation(player,1);}
 				player.setTranslateX(player.getTranslateX()+60);
                 }
 
