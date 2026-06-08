@@ -22,12 +22,38 @@ public class Core extends Application{
 		
 
 		//background rendering
-		Image background = new Image("file:game/media/background.png");
-		ImageView back= new ImageView(background);
-		ImageView back2= new ImageView(background);
-		back.setFitWidth(960);
-		back.setFitHeight(540);
-		back.setSmooth(false);
+		//background rendering (scrolling)
+		Image background = new Image("file:game/media/green.jpg");
+		ImageView back1 = new ImageView(background);
+		ImageView back2 = new ImageView(background);
+
+		back1.setFitWidth(960);
+		back1.setFitHeight(540);
+		back2.setFitWidth(960);
+		back2.setFitHeight(540);
+
+		// 2nd image comes right after the first one
+		back2.setTranslateX(960);
+
+		//add both to root
+		root.getChildren().addAll(back1, back2);
+
+		//scrolling animation
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+    	back1.setTranslateX(back1.getTranslateX() - 2);
+    	back2.setTranslateX(back2.getTranslateX() - 2);
+
+    	//reset position when off-screen
+    	if (back1.getTranslateX() <= -960) {
+        	back1.setTranslateX(back2.getTranslateX() + 960);
+    	}
+    	if (back2.getTranslateX() <= -960) {
+        	back2.setTranslateX(back1.getTranslateX() + 960);
+    	}
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+
 
 		//cow palyer instance
 		Cow cow = new Cow();
@@ -43,7 +69,6 @@ public class Core extends Application{
 
 
 		//adding all nodes to root pane
-		root.getChildren().add(back);
 		root.getChildren().add(player);
 		root.getChildren().add(enemy);
         Scene scene = new Scene(root,960,540);
