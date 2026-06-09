@@ -16,67 +16,8 @@ import game.cow.*;//cow package
 import java.util.Random;
 
 
-class Background{
-                //background rendering
-                //background rendering (scrolling)
-                Image background = new Image("file:game/media/background.png");
-                public ImageView back1 = new ImageView(background);
-                public ImageView back2 = new ImageView(background);
-				public void setScreen(){
-					back1.setFitWidth(global.width);
-					back1.setFitHeight(global.height);
-					back2.setFitWidth(global.width);
-					back2.setFitHeight(global.height);
-					back2.setTranslateX(global.width);
-				}
 
 
-				public void scrollBackground(int x) {
-					// 1. Move both background images to the left
-					back1.setTranslateX(back1.getTranslateX() - global.speed);
-					back2.setTranslateX(back2.getTranslateX() - global.speed);
-
-					// 2. Snap them back to the right once they completely exit the screen
-					if (back1.getTranslateX() <= -global.width) {
-						back1.setTranslateX(back2.getTranslateX() + global.width	);
-					}
-					if (back2.getTranslateX() <= -global.width) {
-						back2.setTranslateX(back1.getTranslateX() + global.width	);
-					}
-				}
-				public void scrollBackground(char a) {
-					// 1. Move both background images to the rigtt
-					back1.setTranslateX(back1.getTranslateX() + global.speed);
-					back2.setTranslateX(back2.getTranslateX() + global.speed);
-
-					// 2. Snap them back to the right once they completely exit the screen
-					if (back1.getTranslateX() >= global.width) {
-						back1.setTranslateX(back2.getTranslateX() - global.width);
-					}
-					if (back2.getTranslateX() >= global.width) {
-						back2.setTranslateX(back1.getTranslateX() - global.width);
-					}
-				}
-}
-
-class Enemy{
-	//enemy rendering
-	Image enm= new Image("file:game/media/enemy.png");
-	public ImageView enemy = new ImageView(enm);
-	public void setup() {
-		enemy.setFitWidth(96);
-		enemy.setFitHeight(96);
-		enemy.setTranslateX(850);
-		enemy.setTranslateY(340);
-	}
-	Random rand = new Random();
-	public void spawn() {
-		int randPos=rand.nextInt((global.width-global.width/2)+1)+global.width/2;
-		if(enemy.getTranslateX() <-40) {
-			enemy.setTranslateX(randPos);
-		}
-	}
-}
 public class Core extends Application{
 
 	public void start(Stage primaryStage){
@@ -84,22 +25,19 @@ public class Core extends Application{
 		Pane root=new Pane();
 		
 		//back ground instancee
-		Background background = new Background();
-		background.setScreen();
+		gameBackground.setScreen();
 		//cow palyer instance
 		Cow cow = new Cow();
 		ImageView player = cow.player;
 
 		//enemy rendering
-		Enemy enemyy = new Enemy();
-		ImageView enemy=enemyy.enemy;
-		enemyy.setup();
+		Enemy.setup();
 		
 		//adding all nodes to root pane
-	    root.getChildren().add(background.back1);
-		root.getChildren().add(background.back2);
+	    root.getChildren().add(gameBackground.back1);
+		root.getChildren().add(gameBackground.back2);
 		root.getChildren().add(player);
-		root.getChildren().add(enemy);
+		root.getChildren().add(Enemy.enemy);
     
 		Scene scene = new Scene(root,global.width,global.height);
     Scene[] menuSceneHolder = new Scene[1];
@@ -108,9 +46,9 @@ public class Core extends Application{
 		//controls
 		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
-			  if (Collision.isColliding(player, enemy)) {
+			  if (Collision.isColliding(player, Enemy.enemy)) {
         System.out.println("hit!");
-        enemy.setTranslateX(900);
+        Enemy.enemy.setTranslateX(900);
 
 }
 			
@@ -123,16 +61,16 @@ public class Core extends Application{
 			//move right
             if (key == KeyCode.D) {
                 cow.row = 0;
-				enemyy.spawn();
-				enemy.setTranslateX(enemy.getTranslateX()-global.speed);
+				Enemy.spawn();
+				Enemy.move();
 				player.setScaleX(1);//set direction
 				if (!cow.running){cow.cycleAnimation(player);}
-				background.scrollBackground(1);
+				gameBackground.scrollBackground(1);
             	}	 
 			//move left
             // else if (key == KeyCode.A) {
             //     cow.row = 0; 
-			// 	enemy.setTranslateX(enemy.getTranslateX()+global.speed);
+			// 	Enemy.move();
 			// 	player.setScaleX(-1);//set directions
             //     if (!cow.running){cow.cycleAnimation(player);}
 			// 	background.scrollBackground('a');
@@ -141,17 +79,17 @@ public class Core extends Application{
 			else if (key == KeyCode.W){
 				cow.row = 2;
 				if(!cow.running){cow.cycleAnimation(player,1);}
-				background.scrollBackground(1);
-				enemyy.spawn();
-				enemy.setTranslateX(enemy.getTranslateX()-global.speed);
+				gameBackground.scrollBackground(1);
+				Enemy.spawn();
+				Enemy.move();
 			}
 			//mvoe down
 			else if(key == KeyCode.S){
 				cow.row =3;
 				if(!cow.running){cow.cycleAnimation(player);}
-				background.scrollBackground('a');
-				enemyy.spawn();
-				enemy.setTranslateX(enemy.getTranslateX()+global.speed);
+				gameBackground.scrollBackground('a');
+				Enemy.spawn();
+				Enemy.move();
 			}
 
 

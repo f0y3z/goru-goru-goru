@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;//to listen for keyperess
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-
+import game.core.*;
 
 
 public class Cow {
@@ -63,6 +63,10 @@ public class Cow {
                 Timeline timeline = new Timeline(
                         new KeyFrame(Duration.millis(150), event ->{
                                 Rectangle2D viewport = new Rectangle2D(col*frameWidth, row*frameHeight, frameWidth, frameHeight);
+								for(int i=0;i<15;i++){
+									gameBackground.scrollBackground(1);
+									Enemy.move();
+								}
                                 iv.setViewport(viewport);
                                 col++;
                                 })
