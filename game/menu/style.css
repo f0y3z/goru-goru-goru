@@ -1,33 +1,47 @@
 .button {
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
-    -fx-font-size: 24px;
-    -fx-border-color: black;
-    -fx-border-width: 2;
+    -fx-background-color: rgba(255, 248, 185, 0);
+    -fx-text-fill: rgb(255, 232, 156);
+    -fx-font-size: 26px;
+    -fx-font-weight: bolder;
+    -fx-border-color:rgb(56, 146, 76);
+    -fx-border-width: 4;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
 }
 
 .button:hover {
-    -fx-background-color: black;
-    -fx-text-fill: white;
+    -fx-background-color:rgb(74, 180, 97);
+    -fx-border-color:rgb(74, 180, 97);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-width: 4;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 18px;
 }
 
 .label.highscore {
-    -fx-font-size: 36px;
-    -fx-text-fill: rgb(3, 3, 3);
-    -fx-background-color: transparent;
-    -fx-border-color: rgb(0, 0, 0);
-    -fx-border-width: 2;
-    -fx-padding: 10;
+    -fx-background-color:rgb(74, 180, 97);
+    -fx-border-color:rgb(74, 180, 97);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-width: 4;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 18px;
 }
 .pause-button {
-    -fx-background-color: green;
-    -fx-text-fill: white;
-    -fx-font-size: 24px;
-    -fx-border-color: black;
-    -fx-border-width: 2;
+    -fx-background-color: rgba(255, 248, 185, 0);
+    -fx-text-fill: rgb(255, 232, 156);
+    -fx-font-size: 26px;
+    -fx-font-weight: bolder;
+    -fx-border-color:rgb(56, 146, 76);
+    -fx-border-width: 4;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
 }
 
 .pause-button:hover {
-    -fx-background-color: darkgreen;
-    -fx-text-fill: white;
+    -fx-background-color:rgb(74, 180, 97);
+    -fx-border-color:rgb(74, 180, 97);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-width: 4;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 18px;
 }

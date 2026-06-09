@@ -54,7 +54,7 @@ public class GameMenu{
 
         // Background image
         BackgroundImage bg = new BackgroundImage(
-                new Image("file:game/media/bg.jpg"),
+                new Image("file:game/media/bg.png"),
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
