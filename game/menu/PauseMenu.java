@@ -2,10 +2,12 @@ package game.menu;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+// import game.core.Background;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import game.core.*;
 
 public class PauseMenu {
     private Scene pauseScene;
@@ -14,10 +16,10 @@ public class PauseMenu {
        // background
         BackgroundImage bg = new BackgroundImage(
             new Image("file:game/media/bg.png"),
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.CENTER,
-            new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, false)
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, true)
         );
 
         VBox pauseLayout = new VBox(20);
@@ -45,7 +47,7 @@ public class PauseMenu {
         exitBtn.setOnAction(e -> stage.close());
 
           pauseLayout.getChildren().addAll(scoreLabel, resumeBtn, mainMenuBtn, exitBtn);
-          pauseScene = new Scene(pauseLayout, 800, 600);
+          pauseScene = new Scene(pauseLayout, global.width, global.height);
 
           // css
           pauseScene.getStylesheets().add("file:game/menu/style.css");

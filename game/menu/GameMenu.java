@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
+import game.core.*;
+import game.core.global;
 import java.io.*;
 
 public class GameMenu{
@@ -58,7 +59,7 @@ public class GameMenu{
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
-                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, false)
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, true)
         );
 
         // ===== Menu Scene =====
@@ -71,7 +72,7 @@ public class GameMenu{
         Button exitBtn = new Button("Exit");
 
         menu.getChildren().addAll(startBtn, optionBtn, exitBtn);
-        Scene menuScene = new Scene(menu, 800, 600);
+        Scene menuScene = new Scene(menu, global.width, global.height);
 
         // ===== Option Scene =====
         VBox optionMenu = new VBox(20);
@@ -91,7 +92,7 @@ public class GameMenu{
         Button backBtn = new Button("Back");
 
         optionMenu.getChildren().addAll(highscoreLabel, resetBtn, newOptionBtn, backBtn);
-        Scene optionScene = new Scene(optionMenu, 800, 600);
+        Scene optionScene = new Scene(optionMenu, global.width, global.height);
 
         // ===== Apply CSS =====
         menuScene.getStylesheets().add("file:game/menu/style.css");

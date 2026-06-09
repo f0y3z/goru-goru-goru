@@ -14,6 +14,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 
+
 public class Cow {
 	//encapsulated animation frame variabels
 	private int frameHeight = 216;

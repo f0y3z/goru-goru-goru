@@ -13,15 +13,9 @@ import javafx.animation.KeyFrame;//animation libns
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import game.cow.*;//cow package
-import game.menu.*;
 import java.util.Random;
 
-class globalVar {
-	public static int width = 960;
-	public static int height = 540;
-	public static int speed = 10;
-	
-}
+
 class Background{
                 //background rendering
                 //background rendering (scrolling)
