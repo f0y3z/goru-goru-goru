@@ -1,5 +1,6 @@
 package game.core;
 import game.menu.*;
+import game.collision.*;
 import javafx.application.Application;//the application class under which all jfx porgrams are written 
 import javafx.stage.Stage;
 import javafx.scene.Scene;//to set the scene with resolution
@@ -114,6 +115,12 @@ public class Core extends Application{
 		//controls
 		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
+			  if (Collision.isColliding(player, enemy)) {
+        System.out.println("hit!");
+        enemy.setTranslateX(900);
+
+}
+			
 			//PauseMenu 
             if (key == KeyCode.ESCAPE) {
                 primaryStage.setScene(pauseMenu.getScene());
