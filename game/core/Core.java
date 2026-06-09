@@ -23,38 +23,38 @@ class Background{
                 public ImageView back1 = new ImageView(background);
                 public ImageView back2 = new ImageView(background);
 				public void setScreen(){
-					back1.setFitWidth(globalVar.width);
-					back1.setFitHeight(globalVar.height);
-					back2.setFitWidth(globalVar.width);
-					back2.setFitHeight(globalVar.height);
-					back2.setTranslateX(globalVar.width);
+					back1.setFitWidth(global.width);
+					back1.setFitHeight(global.height);
+					back2.setFitWidth(global.width);
+					back2.setFitHeight(global.height);
+					back2.setTranslateX(global.width);
 				}
 
 
 				public void scrollBackground(int x) {
 					// 1. Move both background images to the left
-					back1.setTranslateX(back1.getTranslateX() - globalVar.speed);
-					back2.setTranslateX(back2.getTranslateX() - globalVar.speed);
+					back1.setTranslateX(back1.getTranslateX() - global.speed);
+					back2.setTranslateX(back2.getTranslateX() - global.speed);
 
 					// 2. Snap them back to the right once they completely exit the screen
-					if (back1.getTranslateX() <= -globalVar.width) {
-						back1.setTranslateX(back2.getTranslateX() + globalVar.width	);
+					if (back1.getTranslateX() <= -global.width) {
+						back1.setTranslateX(back2.getTranslateX() + global.width	);
 					}
-					if (back2.getTranslateX() <= -globalVar.width) {
-						back2.setTranslateX(back1.getTranslateX() + globalVar.width	);
+					if (back2.getTranslateX() <= -global.width) {
+						back2.setTranslateX(back1.getTranslateX() + global.width	);
 					}
 				}
 				public void scrollBackground(char a) {
 					// 1. Move both background images to the rigtt
-					back1.setTranslateX(back1.getTranslateX() + globalVar.speed);
-					back2.setTranslateX(back2.getTranslateX() + globalVar.speed);
+					back1.setTranslateX(back1.getTranslateX() + global.speed);
+					back2.setTranslateX(back2.getTranslateX() + global.speed);
 
 					// 2. Snap them back to the right once they completely exit the screen
-					if (back1.getTranslateX() >= globalVar.width) {
-						back1.setTranslateX(back2.getTranslateX() - globalVar.width);
+					if (back1.getTranslateX() >= global.width) {
+						back1.setTranslateX(back2.getTranslateX() - global.width);
 					}
-					if (back2.getTranslateX() >= globalVar.width) {
-						back2.setTranslateX(back1.getTranslateX() - globalVar.width);
+					if (back2.getTranslateX() >= global.width) {
+						back2.setTranslateX(back1.getTranslateX() - global.width);
 					}
 				}
 }
@@ -71,7 +71,7 @@ class Enemy{
 	}
 	Random rand = new Random();
 	public void spawn() {
-		int randPos=rand.nextInt((globalVar.width-globalVar.width/2)+1)+globalVar.width/2;
+		int randPos=rand.nextInt((global.width-global.width/2)+1)+global.width/2;
 		if(enemy.getTranslateX() <-40) {
 			enemy.setTranslateX(randPos);
 		}
@@ -86,7 +86,6 @@ public class Core extends Application{
 		//back ground instancee
 		Background background = new Background();
 		background.setScreen();
-			
 		//cow palyer instance
 		Cow cow = new Cow();
 		ImageView player = cow.player;
@@ -102,7 +101,7 @@ public class Core extends Application{
 		root.getChildren().add(player);
 		root.getChildren().add(enemy);
     
-		Scene scene = new Scene(root,globalVar.width,globalVar.height);
+		Scene scene = new Scene(root,global.width,global.height);
     Scene[] menuSceneHolder = new Scene[1];
     int[] scoreHolder = {0};
     PauseMenu pauseMenu = new PauseMenu(primaryStage, scene, menuSceneHolder, scoreHolder);
@@ -125,7 +124,7 @@ public class Core extends Application{
             if (key == KeyCode.D) {
                 cow.row = 0;
 				enemyy.spawn();
-				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed);
+				enemy.setTranslateX(enemy.getTranslateX()-global.speed);
 				player.setScaleX(1);//set direction
 				if (!cow.running){cow.cycleAnimation(player);}
 				background.scrollBackground(1);
@@ -133,7 +132,7 @@ public class Core extends Application{
 			//move left
             // else if (key == KeyCode.A) {
             //     cow.row = 0; 
-			// 	enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed);
+			// 	enemy.setTranslateX(enemy.getTranslateX()+global.speed);
 			// 	player.setScaleX(-1);//set directions
             //     if (!cow.running){cow.cycleAnimation(player);}
 			// 	background.scrollBackground('a');
@@ -144,7 +143,7 @@ public class Core extends Application{
 				if(!cow.running){cow.cycleAnimation(player,1);}
 				background.scrollBackground(1);
 				enemyy.spawn();
-				enemy.setTranslateX(enemy.getTranslateX()-globalVar.speed);
+				enemy.setTranslateX(enemy.getTranslateX()-global.speed);
 			}
 			//mvoe down
 			else if(key == KeyCode.S){
@@ -152,7 +151,7 @@ public class Core extends Application{
 				if(!cow.running){cow.cycleAnimation(player);}
 				background.scrollBackground('a');
 				enemyy.spawn();
-				enemy.setTranslateX(enemy.getTranslateX()+globalVar.speed);
+				enemy.setTranslateX(enemy.getTranslateX()+global.speed);
 			}
 
 
