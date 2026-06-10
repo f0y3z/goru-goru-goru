@@ -14,27 +14,22 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import game.cow.*;//cow package
 import java.util.Random;
+import javafx.scene.control.Label;
 
 
-
-public class Enemy {
-	//enemy rendering
-	public static Image enm= new Image("file:game/media/enemy.png");
-	public static ImageView enemy = new ImageView(enm);
-	public static void setup() {
-		enemy.setFitWidth(48);
-		enemy.setFitHeight(64);
-		enemy.setTranslateX(800);
-		enemy.setTranslateY(345);
+public class IICT {
+    	public static Image iictt= new Image("file:game/media/iict-building.png");
+	public static ImageView iict = new ImageView(iictt);
+	public static void setup(){
+		iict.setTranslateX(140);
+		iict.setTranslateY(172);
 	}
-	public static Random rand = new Random();
 	public static void spawn() {
-		int randPos=rand.nextInt((global.width-global.width/2)+1)+global.width/2;
-		if(enemy.getTranslateX() <-40) {
-			enemy.setTranslateX(randPos);
+		if(iict.getTranslateX() <-450) {
+			iict.setTranslateX(global.width+500);
 		}
 	}
     public static void move(){
-        enemy.setTranslateX(enemy.getTranslateX()-global.speed);
+        iict.setTranslateX(iict.getTranslateX()-global.speed);
     }
 }

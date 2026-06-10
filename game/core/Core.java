@@ -14,8 +14,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import game.cow.*;//cow package
 import java.util.Random;
-
-
+import javafx.scene.control.Label;
 
 
 public class Core extends Application{
@@ -30,28 +29,54 @@ public class Core extends Application{
 		Cow cow = new Cow();
 		ImageView player = cow.player;
 
+
+		Label breath = new Label("!!! Take a Deep Breath before JUMPING!!!");
+		Label tute = new Label("                          1.press 'S' to attract the cowboy\n2.Once the cow boy is close enough press 'W' to jump over him");
+		tute.getStyleClass().add("custom-label");
+		tute.setStyle(
+		    "-fx-background-color: transparent; " +
+			"-fx-text-fill: #17533c; " +
+			"-fx-font-weight: bold; " +  
+			"-fx-font-size: 18px;"
+		);
+		breath.setStyle(
+		    "-fx-background-color: transparent; " +
+			"-fx-text-fill: #ff0000; " +
+			"-fx-font-weight: bold; " +  
+			"-fx-font-size: 18px;"
+		);
+		// breath.setVisible(false);
+		tute.setTranslateX((global.width)/2 -250);
+		breath.setTranslateX((global.width)/2 - (200));
+		breath.setTranslateY((global.height)/2 - (100));
 		//enemy rendering
 		Enemy.setup();
+		Effects.setup();
+		IICT.setup();
 		
 		//adding all nodes to root pane
 	    root.getChildren().add(gameBackground.back1);
 		root.getChildren().add(gameBackground.back2);
+		root.getChildren().add(IICT.iict);
 		root.getChildren().add(player);
 		root.getChildren().add(Enemy.enemy);
-    
+		root.getChildren().add(tute);
+		root.getChildren().add(Effects.exp);
+		root.getChildren().add(breath);
+
 		Scene scene = new Scene(root,global.width,global.height);
-    Scene[] menuSceneHolder = new Scene[1];
-    int[] scoreHolder = {0};
-    PauseMenu pauseMenu = new PauseMenu(primaryStage, scene, menuSceneHolder, scoreHolder);
+    	Scene[] menuSceneHolder = new Scene[1];
+    	int[] scoreHolder = {0};
+    	PauseMenu pauseMenu = new PauseMenu(primaryStage, scene, menuSceneHolder, scoreHolder);
+		
 		//controls
 		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
 			  if (Collision.isColliding(player, Enemy.enemy)) {
-        System.out.println("hit!");
-        Enemy.enemy.setTranslateX(900);
-
-}
-			
+        		System.out.println("hit!");
+				Effects.cycleAnimationexp();
+        		Enemy.enemy.setTranslateX(900);
+			}
 			//PauseMenu 
             if (key == KeyCode.ESCAPE) {
                 primaryStage.setScene(pauseMenu.getScene());
@@ -63,6 +88,8 @@ public class Core extends Application{
                 cow.row = 0;
 				Enemy.spawn();
 				Enemy.move();
+				IICT.spawn();
+				IICT.move();
 				player.setScaleX(1);//set direction
 				if (!cow.running){cow.cycleAnimation(player);}
 				gameBackground.scrollBackground(1);
@@ -82,6 +109,8 @@ public class Core extends Application{
 				gameBackground.scrollBackground(1);
 				Enemy.spawn();
 				Enemy.move();
+				// IICT.spawn();
+				// IICT.move();
 			}
 			//mvoe down
 			else if(key == KeyCode.S){
@@ -90,6 +119,8 @@ public class Core extends Application{
 				gameBackground.scrollBackground('a');
 				Enemy.spawn();
 				Enemy.move();
+				IICT.spawn();
+				IICT.move();
 			}
 
 
@@ -105,7 +136,10 @@ public class Core extends Application{
 			// 	if(!cow.running){cow.cycleAnimation(player,1);}
 			// 	// player.setTranslateX(player.getTranslateX()+60);
             //     }
-
+			//alert thing
+			int x =(int) (Enemy.enemy.getTranslateX()-player.getTranslateX());
+			if(x<350){breath.setVisible(true);}
+			else{breath.setVisible(false);}
         	});
 
 		GameMenu gameMenu = new GameMenu();

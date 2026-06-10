@@ -46,7 +46,7 @@ public class Cow {
 		col =0;
 		running=true;//this stops registering keystrokes while animation is still palyeing
 		Timeline timeline = new Timeline(
-			new KeyFrame(Duration.millis(150), event ->{
+			new KeyFrame(Duration.millis(100), event ->{
 				Rectangle2D viewport = new Rectangle2D(col*frameWidth, row*frameHeight, frameWidth, frameHeight);
 				iv.setViewport(viewport);
 				col++;
@@ -61,11 +61,12 @@ public class Cow {
                 col =0;
                 running=true;//this stops registering keystrokes while animation is still palyeing
                 Timeline timeline = new Timeline(
-                        new KeyFrame(Duration.millis(150), event ->{
+                        new KeyFrame(Duration.millis(100), event ->{
                                 Rectangle2D viewport = new Rectangle2D(col*frameWidth, row*frameHeight, frameWidth, frameHeight);
 								for(int i=0;i<15;i++){
 									gameBackground.scrollBackground(1);
 									Enemy.move();
+									IICT.move();
 								}
                                 iv.setViewport(viewport);
                                 col++;

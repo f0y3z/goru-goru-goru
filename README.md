@@ -8,3 +8,4 @@ chmod x+ run.sh
 ./run.sh
 ```
 
+![Game Gameplay Screen](view.png)
