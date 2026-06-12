@@ -62,21 +62,57 @@ public class Core extends Application{
 		root.getChildren().add(Enemy.enemy);
 		root.getChildren().add(tute);
 		root.getChildren().add(Effects.exp);
-		root.getChildren().add(breath);
+    root.getChildren().add(breath);
 
-		Scene scene = new Scene(root,global.width,global.height);
-    	Scene[] menuSceneHolder = new Scene[1];
-    	int[] scoreHolder = {0};
-    	PauseMenu pauseMenu = new PauseMenu(primaryStage, scene, menuSceneHolder, scoreHolder);
-		
+    Scene scene = new Scene(root,global.width,global.height);
+        	Scene[] menuSceneHolder = new Scene[1];
+        	int[] scoreHolder = {0};
+          int[] lives = {3};
+
+          // heart images
+          javafx.scene.image.Image heartImg = new javafx.scene.image.Image("file:game/media/heart.png");
+          ImageView heart1 = new ImageView(heartImg);
+          ImageView heart2 = new ImageView(heartImg);
+          ImageView heart3 = new ImageView(heartImg);
+
+          heart1.setTranslateX(10); heart1.setTranslateY(10);
+          heart2.setTranslateX(55); heart2.setTranslateY(10);
+          heart3.setTranslateX(100); heart3.setTranslateY(10);
+
+          Label livesLabel = new Label("x " + lives[0]);
+          livesLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;");
+          livesLabel.setTranslateX(148); livesLabel.setTranslateY(14);
+
+          heart1.setFitWidth(40); heart1.setFitHeight(40);
+          heart2.setFitWidth(40); heart2.setFitHeight(40);
+          heart3.setFitWidth(40); heart3.setFitHeight(40);
+
+          root.getChildren().addAll(heart1, heart2, heart3, livesLabel);
+
+          PauseMenu pauseMenu = new PauseMenu(primaryStage, scene, menuSceneHolder, scoreHolder);
+		    
 		//controls
 		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
-			  if (Collision.isColliding(player, Enemy.enemy)) {
-        		System.out.println("hit!");
-				Effects.cycleAnimationexp();
-        		Enemy.enemy.setTranslateX(900);
-			}
+      if (Collision.isColliding(player, Enemy.enemy)) {
+          Effects.cycleAnimationexp();
+          Enemy.enemy.setTranslateX(900);
+          lives[0]--;
+          livesLabel.setText("x " + lives[0]);
+
+          if (lives[0] == 2) { heart3.setVisible(false); }
+          else if (lives[0] == 1) { heart2.setVisible(false); }
+          else if (lives[0] <= 0) {
+              heart1.setVisible(false);
+              GameOver.show(primaryStage, menuSceneHolder, () -> {
+                  lives[0] = 3;
+                  heart1.setVisible(true);
+                  heart2.setVisible(true);
+                  heart3.setVisible(true);
+                  Enemy.enemy.setTranslateX(800);
+              });
+          }
+      }
 			//PauseMenu 
             if (key == KeyCode.ESCAPE) {
                 primaryStage.setScene(pauseMenu.getScene());
